@@ -1,6 +1,8 @@
 * {
   margin: 0;
   padding: 0;
+  color: aliceblue;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 body {
@@ -41,8 +43,6 @@ h4 {
 }
 
 .side-bar {
-  display: flex;
-  flex-direction: column;
   width: 25%;
   /* flex-grow: 1; */
   background-color: #4d4d4d;
@@ -69,7 +69,12 @@ h4 {
   width: 250px;
   /* height: 100px; */
   border: rgb(208, 255, 0) solid 3px;
+  border-radius: 8px;
 }
+.ongoing-task h4 {
+  border-bottom: rgb(208, 255, 0) solid 3px;
+}
+
 .task-header {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: azure;
@@ -102,6 +107,17 @@ h4 {
 .finished-task > h4 {
   border-bottom: rgb(0, 255, 0) solid 3px;
 }
+.unfinished-task {
+  width: 250px;
+  /* height: 100px; */
+  border: rgb(255, 0, 0) solid 3px;
+  border-radius: 8px;
+}
+
+.unfinished-task > h4 {
+  border-bottom: rgb(255, 0, 0) solid 3px;
+}
+
 .calendar {
   display: flex;
   height: 25%;
@@ -112,4 +128,14 @@ h4 {
 }
 .calendar input {
   margin: auto;
+  color: black;
+}
+.default {
+  margin: 20px;
+  border-bottom: #333333 solid 3px;
+  padding-bottom: 20px;
+}
+
+.events {
+  margin: 20px;
 }
