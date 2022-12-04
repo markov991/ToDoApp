@@ -156,3 +156,12 @@ h4 {
 .hidden {
   display: none;
 }
+.add-new-task {
+  background-color: aqua;
+  border-color: aqua;
+  position: absolute;
+  font-size: 2rem;
+  right: 0px;
+  top: 50%;
+  padding: 0.5rem;
+}
