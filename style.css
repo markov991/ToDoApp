@@ -132,26 +132,73 @@ h4 {
 }
 .default {
   margin: 20px;
-  border-bottom: #333333 solid 3px;
-  padding-bottom: 20px;
+  /* border-bottom: #333333 solid 3px; */
+  /* padding-bottom: 20px; */
 }
 
 .events {
+  border-top: #333333 solid 3px;
   margin: 20px;
+}
+.event {
+  margin-top: 20px;
 }
 
 .modal {
   position: absolute;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-evenly; */
+  margin: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
 
-  background-color: white;
+  background-color: rgb(24, 150, 87);
   color: black;
   padding: 6rem;
   border-radius: 5px;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+}
+.reqierd-fields > * {
+  margin: 5px;
+}
+.reqierd-fields {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+.optonal-fields {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.optonal-fields > * {
+  margin: 5px;
+}
+.input-container {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  align-items: center;
+  gap: 40px;
+}
+.subb-button {
+  font-size: 20px;
+  color: black;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+.new-task-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 .hidden {
   display: none;
@@ -164,4 +211,7 @@ h4 {
   right: 0px;
   top: 50%;
   padding: 0.5rem;
+}
+input {
+  color: black;
 }
