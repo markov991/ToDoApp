@@ -212,6 +212,7 @@ h4 {
   top: 50%;
   padding: 0.5rem;
 }
-input {
+input,
+textarea {
   color: black;
 }

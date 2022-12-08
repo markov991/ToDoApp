@@ -1,15 +1,78 @@
 const addbutton = document.querySelector(".add-new-task");
 const modal = document.querySelector(".modal");
 const defaultevents = document.querySelector(".default");
+const events = [];
+const tasks = [
+  {
+    taskName: "Learn React",
+    description:
+      "Lorem ipsum dolor sit amet consectetur,adipisicing elit. Necessitatibus odit quos in reprehenderit ipsum maiores",
+    date: "",
+    eventName: "Frontend",
+    status: "ongoing",
+  },
+  {
+    taskName: "Learn HTML",
+    description:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus odit quos in reprehenderit ipsum maiores",
+    date: "",
+    eventName: "Frontend",
+    status: "finished",
+  },
+  {
+    taskName: "Learn CSS",
+    description:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus odit quos in reprehenderit ipsum maiores",
+    date: "",
+    eventName: "Frontend",
+    status: "finished",
+  },
+  {
+    taskName: "Learn JS",
+    description:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus odit quos in reprehenderit ipsum maiores",
+    date: "",
+    eventName: "Frontend",
+    status: "finished",
+  },
+  {
+    taskName: "Learn React",
+    description:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus odit quos in reprehenderit ipsum maiores",
+    date: "2020-06-08",
+    eventName: "Frontend",
+    status: "unfinished",
+  },
+];
 
-const addtask = function () {
+const addingTask = function () {
   addbutton.addEventListener("click", function () {
     modal.classList.toggle("hidden");
     modal.innerHTML = "";
     renderingTaskForm();
+    collectingDataForTasks();
   });
 };
 
+const collectingDataForTasks = function () {
+  const subbTask = document.querySelector(".subb-button");
+  if (!modal.classList.contains("hidden")) {
+    subbTask.addEventListener("click", function () {
+      const taskName = document.getElementById("task-name");
+      const taskDescription = document.getElementById("task-description");
+      const dateInput = document.getElementById("date-input");
+      const eventInput = document.getElementById("event-input");
+      tasks.push({
+        taskName: taskName.value,
+        description: taskDescription.value,
+        date: dateInput.value,
+        eventName: eventInput.value,
+      });
+      events.push(eventInput.value);
+      modal.classList.toggle("hidden");
+    });
+  }
+};
 const renderingTaskForm = function () {
   modal.insertAdjacentHTML(
     "afterbegin",
@@ -29,9 +92,9 @@ const renderingTaskForm = function () {
         </div>
         <div class="optonal-fields">
           <label for="date">Chose a date</label>
-          <input type="date" />
+          <input type="date" id="date-input" />
           <label for="event">Event</label>
-          <input type="text" name="event" id="event" size="20" />
+          <input type="text" name="event" id="event-input" size="20" />
         </div>
       </div>
       <button class="subb-button">Subbmit</button>
@@ -42,5 +105,4 @@ const renderingTaskForm = function () {
 
 defaultevents.addEventListener("click", () => console.log("hello"));
 
-addtask();
-let events = [];
+addingTask();
