@@ -56,7 +56,9 @@ h4 {
 .ongoing-list {
   border: red solid 3px;
 }
-.ongoing-tasks-containter {
+.ongoing-tasks-containter,
+.finished-tasks-containter,
+.unfinished-tasks-containter {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
