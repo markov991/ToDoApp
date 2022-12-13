@@ -187,3 +187,27 @@ const renderingTaskForm = function () {
 defaultevents.addEventListener("click", () => console.log("hello"));
 
 addingTask();
+
+//logic for deleting empty containers
+// _____________IN PROGRES__________________
+/*
+const delitingEmptyContainers = function () {
+  const statuses = ["ongoing", "finished", "unfinished"];
+  statuses.forEach((status) => {
+    if (
+      !document.querySelector(`.${status}-tasks-containter`).children[0]
+        .className === `${status}-task`
+    ) {
+      document.querySelector(`.${status}-list`).remove();
+    }
+  });
+  // const y = document.querySelector(".finished-tasks-containter").children;
+  // console.log(y[0].className === "finished-task");
+};
+
+// const y = document.querySelector(".event").value;
+// for (element of y) {
+//   console.log(element);
+// }
+// y.forEach((element) => console.log(element));
+*/

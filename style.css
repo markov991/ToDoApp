@@ -6,7 +6,8 @@
 }
 
 body {
-  background-color: blanchedalmond;
+  background-image: linear-gradient(to right, #4d4d4d, #666666);
+  /* background-color: blanchedalmond; */
 }
 
 header {
@@ -49,20 +50,22 @@ h4 {
 }
 
 .main-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 75%;
   /* flex-grow: 3; */
   background-color: #666666;
 }
-.ongoing-list {
-  border: red solid 3px;
-}
+
 .ongoing-tasks-containter,
 .finished-tasks-containter,
 .unfinished-tasks-containter {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  border: rgb(0, 225, 255) solid 3px;
+  padding-bottom: 15px;
+  border-bottom: rgb(53, 60, 61) solid 3px;
   margin: 10px;
   gap: 10px;
 }
@@ -94,6 +97,7 @@ h4 {
 }
 .task-description {
   text-align: center;
+  height: 75px;
 }
 .finished-task {
   width: 250px;
@@ -217,4 +221,5 @@ h4 {
 input,
 textarea {
   color: black;
+  font-size: 16px;
 }
