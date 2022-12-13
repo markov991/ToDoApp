@@ -52,9 +52,13 @@ const addingTask = function () {
     modal.innerHTML = "";
     renderingTaskForm();
     collectingDataForTasks();
+    document.getElementById("event-input").insertAdjacentHTML(
+      "afterbegin",
+      events.forEach((event) => `<option value="${event}">${event}</option>`)
+    );
   });
 };
-
+addEventListener("load", () => renderingEvents());
 const collectingDataForTasks = function () {
   const subbTask = document.querySelector(".subb-button");
   if (!modal.classList.contains("hidden")) {
@@ -108,6 +112,7 @@ const renderingEvents = function () {
           );
         }
       });
+      delitingEmptyContainers();
     });
   }
   // console.log(x);
@@ -153,7 +158,7 @@ const renderingTasks = function (location, status, taskName, taskDescription) {
     </div>`
   );
 };
-addEventListener("load", () => renderingEvents());
+
 const renderingTaskForm = function () {
   modal.insertAdjacentHTML(
     "afterbegin",
@@ -175,39 +180,50 @@ const renderingTaskForm = function () {
           <label for="date">Chose a date</label>
           <input type="date" id="date-input" />
           <label for="event">Event</label>
-          <input type="text" name="event" id="event-input" size="20" />
+          <select name="event"id="event-input">
+            <option value="empty"></option>
+				    <option value="New">New</option>
+            
+							
+			</select><br>
+
+      
+      <input type="text" class= "hidden" id="event-input-new" name="task-name" size="20" />
+
         </div>
       </div>
       <button class="subb-button">Subbmit</button>
     </div>
   `
   );
+  events.forEach((event) => {
+    document
+      .getElementById("event-input")
+      .insertAdjacentHTML(
+        "beforeend",
+        `<option value="${event}">${event}</option>`
+      );
+  });
+
+  document.getElementById("event-input").addEventListener("click", () => {
+    if (document.getElementById("event-input").value === "New") {
+      document.getElementById("event-input-new").classList.toggle("hidden");
+    }
+  });
 };
 
 defaultevents.addEventListener("click", () => console.log("hello"));
 
 addingTask();
 
-//logic for deleting empty containers
-// _____________IN PROGRES__________________
-/*
 const delitingEmptyContainers = function () {
   const statuses = ["ongoing", "finished", "unfinished"];
   statuses.forEach((status) => {
     if (
-      !document.querySelector(`.${status}-tasks-containter`).children[0]
-        .className === `${status}-task`
+      document.querySelector(`.${status}-tasks-containter`).children.length ===
+      0
     ) {
       document.querySelector(`.${status}-list`).remove();
     }
   });
-  // const y = document.querySelector(".finished-tasks-containter").children;
-  // console.log(y[0].className === "finished-task");
 };
-
-// const y = document.querySelector(".event").value;
-// for (element of y) {
-//   console.log(element);
-// }
-// y.forEach((element) => console.log(element));
-*/
