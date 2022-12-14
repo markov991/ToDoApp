@@ -67,18 +67,24 @@ const collectingDataForTasks = function () {
       const taskDescription = document.getElementById("task-description");
       const dateInput = document.getElementById("date-input");
       const eventInput = document.querySelector(".event-input");
+      if (
+        !(taskName.value.length === 0 || taskDescription.value.length === 0)
+      ) {
+        modal.classList.toggle("hidden");
+        tasks.push({
+          taskName: taskName.value,
+          description: taskDescription.value,
+          date: dateInput.value,
+          eventName: eventInput.value,
+          status: "ongoing",
+        });
+        if (
+          !(events.includes(eventInput.value) || eventInput.value.length === 0)
+        )
+          events.push(eventInput.value);
+      } else {
+      }
 
-      tasks.push({
-        taskName: taskName.value,
-        description: taskDescription.value,
-        date: dateInput.value,
-        eventName: eventInput.value,
-        status: "ongoing",
-      });
-      if (events.includes(eventInput.value) || eventInput.value.length === 0) {
-      } else events.push(eventInput.value);
-
-      modal.classList.toggle("hidden");
       eventsContainer.innerHTML = "";
       renderingEvents();
     });

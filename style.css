@@ -141,6 +141,7 @@ h4 {
 }
 .default {
   margin: 20px;
+  width: fit-content;
   /* border-bottom: #333333 solid 3px; */
   /* padding-bottom: 20px; */
 }
@@ -151,6 +152,11 @@ h4 {
 }
 .event {
   margin-top: 20px;
+  width: fit-content;
+}
+.event,
+.default:hover {
+  cursor: pointer;
 }
 
 .modal {
