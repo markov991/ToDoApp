@@ -66,7 +66,8 @@ const collectingDataForTasks = function () {
       const taskName = document.getElementById("task-name");
       const taskDescription = document.getElementById("task-description");
       const dateInput = document.getElementById("date-input");
-      const eventInput = document.getElementById("event-input");
+      const eventInput = document.querySelector(".event-input");
+
       tasks.push({
         taskName: taskName.value,
         description: taskDescription.value,
@@ -74,9 +75,9 @@ const collectingDataForTasks = function () {
         eventName: eventInput.value,
         status: "ongoing",
       });
-      if (!events.includes(eventInput.value)) {
-        events.push(eventInput.value);
-      }
+      if (events.includes(eventInput.value) || eventInput.value.length === 0) {
+      } else events.push(eventInput.value);
+
       modal.classList.toggle("hidden");
       eventsContainer.innerHTML = "";
       renderingEvents();
@@ -180,15 +181,15 @@ const renderingTaskForm = function () {
           <label for="date">Chose a date</label>
           <input type="date" id="date-input" />
           <label for="event">Event</label>
-          <select name="event"id="event-input">
-            <option value="empty"></option>
+          <select name="event"id="event-input" class= "event-input">
+            <option value=""></option>
 				    <option value="New">New</option>
             
 							
 			</select><br>
 
       
-      <input type="text" class= "hidden" id="event-input-new" name="task-name" size="20" />
+      <input type="text" class= "event-input hidden" id="event-input-new" name="task-name" size="20" placeholder="Plaese enter event name" />
 
         </div>
       </div>
@@ -208,6 +209,7 @@ const renderingTaskForm = function () {
   document.getElementById("event-input").addEventListener("click", () => {
     if (document.getElementById("event-input").value === "New") {
       document.getElementById("event-input-new").classList.toggle("hidden");
+      document.getElementById("event-input").classList.toggle("event-input");
     }
   });
 };
