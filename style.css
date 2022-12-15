@@ -98,6 +98,7 @@ h4 {
   border-bottom: rgb(255, 255, 0) solid 3px;
 }
 .task-description {
+  overflow: hidden;
   margin: 15px auto;
   text-align: center;
   height: 75px;
@@ -155,7 +156,10 @@ h4 {
   width: fit-content;
 }
 .event,
-.default:hover {
+.default,
+.ongoing-task,
+.finished-task,
+.unfinished-task:hover {
   cursor: pointer;
 }
 
@@ -226,6 +230,9 @@ h4 {
   right: 0px;
   top: 50%;
   padding: 0.5rem;
+}
+#warning {
+  color: red;
 }
 input,
 textarea,

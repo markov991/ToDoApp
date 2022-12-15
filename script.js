@@ -83,6 +83,13 @@ const collectingDataForTasks = function () {
         )
           events.push(eventInput.value);
       } else {
+        document.getElementById("task-description").style.borderColor = "red";
+        document.getElementById("task-name").style.borderColor = "red";
+
+        const warnings = document
+          .querySelector(".reqierd-fields")
+          .querySelectorAll("span");
+        warnings.forEach((element) => element.classList.remove("hidden"));
       }
 
       eventsContainer.innerHTML = "";
@@ -104,25 +111,34 @@ const renderingEvents = function () {
       document.querySelector(".main-bar").innerHTML = "";
       renderingTaskContainers();
 
-      tasks.forEach((task) => {
+      tasks.forEach((task, index) => {
         if (
           event[i].innerText === task.eventName
           // &&
           // task.status === "ongoing"
         ) {
+          // openingTaskDetail(index);
           console.log(task.taskName);
           renderingTasks(
             document.querySelector(`.${task.status}-tasks-containter`),
             task.status,
             task.taskName,
-            task.description
+            task.description,
+            index
           );
         }
+        openingTaskDetail(index);
       });
       delitingEmptyContainers();
     });
   }
   // console.log(x);
+};
+
+//Problem when need to render tasks that are not in original task array
+const openingTaskDetail = function (i) {
+  const x = document.querySelector(`.task-${i}`);
+  x.addEventListener("click", () => console.log(x));
 };
 const renderingTaskContainers = function () {
   document.querySelector(".main-bar").insertAdjacentHTML(
@@ -148,13 +164,19 @@ const renderingTaskContainers = function () {
   );
 };
 
-const renderingTasks = function (location, status, taskName, taskDescription) {
+const renderingTasks = function (
+  location,
+  status,
+  taskName,
+  taskDescription,
+  taskId
+) {
   location.insertAdjacentHTML(
     "beforeend",
     `
   
     
-      <div class="${status}-task">
+      <div class="${status}-task task-${taskId}">
         <h4 class="task-name">${taskName}</h4>
         <div class="task-description">
           <p>${taskDescription}
@@ -175,6 +197,7 @@ const renderingTaskForm = function () {
         <div class="reqierd-fields">
           <label for="task-name">Task name</label>
           <input type="text" id="task-name" name="task-name" size="20" />
+          <span id ="warning" class='warning hidden'>This field is reqierd</span>
           <label for="task-description">Task description</label>
           <textarea
             name="task-description"
@@ -182,6 +205,7 @@ const renderingTaskForm = function () {
             cols="30"
             rows="5"
           ></textarea>
+          <span id ="warning" class='warning hidden'>This field is reqierd</span>
         </div>
         <div class="optonal-fields">
           <label for="date">Chose a date</label>
