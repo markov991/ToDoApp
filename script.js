@@ -110,13 +110,14 @@ const renderingEvents = function () {
     event[i].addEventListener("click", () => {
       document.querySelector(".main-bar").innerHTML = "";
       renderingTaskContainers();
-
+      let counter = 0;
       tasks.forEach((task, index) => {
         if (
           event[i].innerText === task.eventName
           // &&
           // task.status === "ongoing"
         ) {
+          counter++;
           // openingTaskDetail(index);
           console.log(task.taskName);
           renderingTasks(
@@ -127,8 +128,9 @@ const renderingEvents = function () {
             index
           );
         }
-        openingTaskDetail(index);
       });
+      console.log(counter);
+      openingTaskDetail();
       delitingEmptyContainers();
     });
   }
@@ -136,9 +138,15 @@ const renderingEvents = function () {
 };
 
 //Problem when need to render tasks that are not in original task array
-const openingTaskDetail = function (i) {
-  const x = document.querySelector(`.task-${i}`);
-  x.addEventListener("click", () => console.log(x));
+const openingTaskDetail = function () {
+  const x = document.querySelectorAll(`.task`);
+  for (let i = 0; i < x.length; i++) {
+    x[i].addEventListener("click", () => {
+      modal.classList.remove("hidden");
+      console.log(tasks[x[i].id]);
+    });
+  }
+  //  addEventListener("click", () => console.log(element));
 };
 const renderingTaskContainers = function () {
   document.querySelector(".main-bar").insertAdjacentHTML(
@@ -176,7 +184,7 @@ const renderingTasks = function (
     `
   
     
-      <div class="${status}-task task-${taskId}">
+      <div class="${status}-task task" id="${taskId}">
         <h4 class="task-name">${taskName}</h4>
         <div class="task-description">
           <p>${taskDescription}
