@@ -104,36 +104,49 @@ const renderingEvents = function () {
       `<div class="event">${event}</div>`
     );
   });
+
   const event = eventsContainer.getElementsByTagName("div");
 
   for (let i = 0; i < event.length; i++) {
     event[i].addEventListener("click", () => {
       document.querySelector(".main-bar").innerHTML = "";
       renderingTaskContainers();
-
-      tasks.forEach((task, index) => {
-        if (
-          event[i].innerText === task.eventName
-          // &&
-          // task.status === "ongoing"
-        ) {
-          // openingTaskDetail(index);
-          console.log(task.taskName);
-          renderingTasks(
-            document.querySelector(`.${task.status}-tasks-containter`),
-            task.status,
-            task.taskName,
-            task.description,
-            index
-          );
-        }
-      });
+      sendingParToRenderingTask(event[i].innerText);
 
       openingTaskDetail();
       delitingEmptyContainers();
     });
   }
   // console.log(x);
+};
+const sendingParToRenderingTask = function (eventName, stat) {
+  tasks.forEach((task, index) => {
+    if (
+      eventName === task.eventName
+
+      // &&
+      // task.status === "ongoing"
+    ) {
+      // openingTaskDetail(index);
+      console.log(task.taskName);
+      renderingTasks(
+        document.querySelector(`.${task.status}-tasks-containter`),
+        task.status,
+        task.taskName,
+        task.description,
+        index
+      );
+    }
+    if (stat === task.status) {
+      renderingTasks(
+        document.querySelector(`.${task.status}-tasks-containter`),
+        task.status,
+        task.taskName,
+        task.description,
+        index
+      );
+    }
+  });
 };
 
 //Problem when need to render tasks that are not in original task array
@@ -155,6 +168,7 @@ const openingTaskDetail = function () {
   }
   //  addEventListener("click", () => console.log(element));
 };
+
 const renderingTaskContainers = function () {
   document.querySelector(".main-bar").insertAdjacentHTML(
     "afterbegin",
@@ -178,6 +192,7 @@ const renderingTaskContainers = function () {
 `
   );
 };
+
 const renderingTaskInfo = function (
   taskId,
   taskName,
@@ -207,11 +222,19 @@ const renderingTaskInfo = function (
 
 `
   );
+
   document.querySelector(".confirm-button").addEventListener("click", () => {
     taskId.status = "finished";
     modal.classList.toggle("hidden");
 
-    console.log(taskId.status);
+    document.querySelector(".main-bar").innerHTML = "";
+    renderingTaskContainers();
+    sendingParToRenderingTask(taskId.eventName);
+    delitingEmptyContainers();
+
+    openingTaskDetail();
+
+    console.log(taskId);
   });
   document.querySelector(".close-button").addEventListener("click", () => {
     modal.classList.toggle("hidden");
@@ -314,3 +337,12 @@ const delitingEmptyContainers = function () {
     }
   });
 };
+const ongoingEvents = function () {
+  document.querySelector(".main-bar").innerHTML = "";
+  renderingTaskContainers();
+  sendingParToRenderingTask("", "ongoing");
+  delitingEmptyContainers();
+};
+
+addEventListener("load", () => ongoingEvents());
+defaultevents.addEventListener("click", () => ongoingEvents());
