@@ -110,14 +110,13 @@ const renderingEvents = function () {
     event[i].addEventListener("click", () => {
       document.querySelector(".main-bar").innerHTML = "";
       renderingTaskContainers();
-      let counter = 0;
+
       tasks.forEach((task, index) => {
         if (
           event[i].innerText === task.eventName
           // &&
           // task.status === "ongoing"
         ) {
-          counter++;
           // openingTaskDetail(index);
           console.log(task.taskName);
           renderingTasks(
@@ -129,7 +128,7 @@ const renderingEvents = function () {
           );
         }
       });
-      console.log(counter);
+
       openingTaskDetail();
       delitingEmptyContainers();
     });
@@ -139,11 +138,19 @@ const renderingEvents = function () {
 
 //Problem when need to render tasks that are not in original task array
 const openingTaskDetail = function () {
-  const x = document.querySelectorAll(`.task`);
-  for (let i = 0; i < x.length; i++) {
-    x[i].addEventListener("click", () => {
+  const eventTasks = document.querySelectorAll(`.task`);
+  for (let i = 0; i < eventTasks.length; i++) {
+    eventTasks[i].addEventListener("click", () => {
       modal.classList.remove("hidden");
-      console.log(tasks[x[i].id]);
+      modal.innerHTML = "";
+      renderingTaskInfo(
+        tasks[eventTasks[i].id],
+        tasks[eventTasks[i].id].taskName,
+        tasks[eventTasks[i].id].description,
+        tasks[eventTasks[i].id].date,
+        tasks[eventTasks[i].id].status
+      );
+      console.log(tasks);
     });
   }
   //  addEventListener("click", () => console.log(element));
@@ -156,20 +163,60 @@ const renderingTaskContainers = function () {
     <h3 class="task-header">ONGOING TASKS</h3>
     <div class="ongoing-tasks-containter"></div>
     
-</div>
-<div class="finished-list">
+  </div>
+  <div class="finished-list">
     <h3 class="task-header">FINISHED TASKS</h3>
     <div class="finished-tasks-containter"></div>
     
-</div>
+  </div>
 
-<div class="unfinished-list">
-<h3 class="task-header">UNFINISHED TASKS</h3>
-<div class="unfinished-tasks-containter"></div>
+  <div class="unfinished-list">
+    <h3 class="task-header">UNFINISHED TASKS</h3>
+    <div class="unfinished-tasks-containter"></div>
 
-</div>
+  </div>
 `
   );
+};
+const renderingTaskInfo = function (
+  taskId,
+  taskName,
+  taskDescription,
+  taskDate,
+  taskStatus,
+  dateAdded = "no info"
+) {
+  modal.insertAdjacentHTML(
+    "afterbegin",
+    ` 
+      <div class="modal-taskname">${taskName}</div>
+      <div class = "modal-task-descripton-container">
+        <div class="modal-task-descripton">${taskDescription}</div>
+        <div class="modal-other-info">
+          <div>Date added: ${dateAdded}</div>
+          <div>Dedline date: ${taskDate}</div>
+          <div >Task status: <span class="status-marker-${taskStatus}">${taskStatus.toUpperCase()}</span></div>
+        
+        </div>
+        </div>
+        <div class="modal-buttons">
+          <button class="confirm-button">Confirm</button>
+          <button class = "close-button">Close</button>
+        </div>
+
+
+`
+  );
+  document.querySelector(".confirm-button").addEventListener("click", () => {
+    taskId.status = "finished";
+    modal.classList.toggle("hidden");
+
+    console.log(taskId.status);
+  });
+  document.querySelector(".close-button").addEventListener("click", () => {
+    modal.classList.toggle("hidden");
+    modal.innerHTML = "";
+  });
 };
 
 const renderingTasks = function (
