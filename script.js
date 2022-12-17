@@ -8,9 +8,10 @@ const tasks = [
     taskName: "Learn React",
     description:
       "Lorem ipsum dolor sit amet consectetur,adipisicing elit. Necessitatibus odit quos in reprehenderit ipsum maiores",
-    date: "",
+    date: "2023-02-01",
     eventName: "Frontend",
     status: "ongoing",
+    dateCreated: "2022-01-01",
   },
   {
     taskName: "Learn HTML",
@@ -19,6 +20,7 @@ const tasks = [
     date: "",
     eventName: "Frontend",
     status: "finished",
+    dateCreated: "2022-01-01",
   },
   {
     taskName: "Learn CSS",
@@ -27,6 +29,7 @@ const tasks = [
     date: "",
     eventName: "Frontend",
     status: "finished",
+    dateCreated: "2022-01-01",
   },
   {
     taskName: "Learn JS",
@@ -35,6 +38,7 @@ const tasks = [
     date: "",
     eventName: "Frontend",
     status: "finished",
+    dateCreated: "2022-01-01",
   },
   {
     taskName: "Learn Python",
@@ -43,6 +47,7 @@ const tasks = [
     date: "2020-06-08",
     eventName: "Frontend",
     status: "unfinished",
+    dateCreated: "2022-01-01",
   },
 ];
 
@@ -58,7 +63,7 @@ const addingTask = function () {
     );
   });
 };
-addEventListener("load", () => renderingEvents());
+// addEventListener("load", () => renderingEvents());
 const collectingDataForTasks = function () {
   const subbTask = document.querySelector(".subb-button");
   if (!modal.classList.contains("hidden")) {
@@ -77,6 +82,7 @@ const collectingDataForTasks = function () {
           date: dateInput.value,
           eventName: eventInput.value,
           status: "ongoing",
+          dateCreated: getCurentDate(),
         });
         if (
           !(events.includes(eventInput.value) || eventInput.value.length === 0)
@@ -94,6 +100,7 @@ const collectingDataForTasks = function () {
 
       eventsContainer.innerHTML = "";
       renderingEvents();
+      setLocalStorage();
     });
   }
 };
@@ -119,7 +126,12 @@ const renderingEvents = function () {
   }
   // console.log(x);
 };
-const sendingParToRenderingTask = function (eventName, stat) {
+const sendingParToRenderingTask = function (
+  eventName,
+  stat,
+  creaDate,
+  deadline
+) {
   tasks.forEach((task, index) => {
     if (
       eventName === task.eventName
@@ -146,6 +158,24 @@ const sendingParToRenderingTask = function (eventName, stat) {
         index
       );
     }
+    if (creaDate === task.dateCreated) {
+      renderingTasks(
+        document.querySelector(`.${task.status}-tasks-containter`),
+        task.status,
+        task.taskName,
+        task.description,
+        index
+      );
+    }
+    if (deadline === task.date) {
+      renderingTasks(
+        document.querySelector(`.${task.status}-tasks-containter`),
+        task.status,
+        task.taskName,
+        task.description,
+        index
+      );
+    }
   });
 };
 
@@ -161,9 +191,9 @@ const openingTaskDetail = function () {
         tasks[eventTasks[i].id].taskName,
         tasks[eventTasks[i].id].description,
         tasks[eventTasks[i].id].date,
-        tasks[eventTasks[i].id].status
+        tasks[eventTasks[i].id].status,
+        tasks[eventTasks[i].id].dateCreated
       );
-      console.log(tasks);
     });
   }
   //  addEventListener("click", () => console.log(element));
@@ -340,9 +370,81 @@ const delitingEmptyContainers = function () {
 const ongoingEvents = function () {
   document.querySelector(".main-bar").innerHTML = "";
   renderingTaskContainers();
-  sendingParToRenderingTask("", "ongoing");
+  sendingParToRenderingTask(undefined, "ongoing");
   delitingEmptyContainers();
+  openingTaskDetail();
 };
 
-addEventListener("load", () => ongoingEvents());
+addEventListener("load", () => {
+  getLocalStorage();
+
+  checkingStatus();
+  checkingForEvents();
+  renderingEvents();
+  ongoingEvents();
+});
 defaultevents.addEventListener("click", () => ongoingEvents());
+const dateSelector = document.querySelector("#date");
+
+document.querySelector("#filter-by-in-date").addEventListener("click", () => {
+  if (dateSelector.value.length > 0) {
+    document.querySelector(".main-bar").innerHTML = "";
+    renderingTaskContainers();
+    sendingParToRenderingTask(undefined, undefined, dateSelector.value);
+    delitingEmptyContainers();
+    openingTaskDetail();
+  }
+});
+
+document.querySelector("#filter-by-dedline").addEventListener("click", () => {
+  if (dateSelector.value.length > 0) {
+    document.querySelector(".main-bar").innerHTML = "";
+    renderingTaskContainers();
+    sendingParToRenderingTask(
+      undefined,
+      undefined,
+      undefined,
+      dateSelector.value
+    );
+    delitingEmptyContainers();
+    openingTaskDetail();
+  }
+});
+
+const getCurentDate = function () {
+  let now = new Date();
+  return now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+};
+
+const checkingStatus = function () {
+  tasks.forEach((task) => {
+    let date = task.date;
+    for (let i = 0; i < date.length; i++) {
+      if (!(date[i] >= getCurentDate()[i])) {
+        task.status = "unfinished";
+        break;
+      } else break;
+    }
+  });
+};
+
+const setLocalStorage = function () {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+};
+const getLocalStorage = function () {
+  const data = JSON.parse(localStorage.getItem("tasks"));
+
+  if (!data) return;
+  data.forEach((task, index) => {
+    if (!(JSON.stringify(task) === JSON.stringify(tasks[index]))) {
+      tasks.push(task);
+    }
+  });
+};
+
+const checkingForEvents = function () {
+  tasks.forEach((task) => {
+    if (!(events.includes(task.eventName) || task.eventName.length === 0))
+      events.push(task.eventName);
+  });
+};
