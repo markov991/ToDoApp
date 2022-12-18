@@ -37,104 +37,43 @@ span {
 }
 h4 {
 }
+
+input,
+textarea,
+option,
+select {
+  color: black;
+  font-size: 16px;
+}
+
 .container {
   display: flex;
   width: 100%;
   min-height: 90vh;
 }
+.event,
+.default,
+.ongoing-task,
+.finished-task,
+.unfinished-task:hover {
+  cursor: pointer;
+}
+
+.add-new-task {
+  background-color: aqua;
+  border-color: aqua;
+  position: absolute;
+  font-size: 2rem;
+  right: 0px;
+  top: 50%;
+  padding: 0.5rem;
+}
+/* __________Sidebar styling______________ */
 
 .side-bar {
   width: 25%;
   /* flex-grow: 1; */
   background-color: #4d4d4d;
-}
-
-.main-bar {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 75%;
-  /* flex-grow: 3; */
-  background-color: #666666;
-}
-
-.ongoing-tasks-containter,
-.finished-tasks-containter,
-.unfinished-tasks-containter {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  padding-bottom: 15px;
-  border-bottom: rgb(53, 60, 61) solid 3px;
-  margin: 35px;
-  gap: 10px;
-}
-.status-marker-unfinished {
-  color: red;
-}
-
-.status-marker-finished {
-  color: #00ea00;
-}
-.status-marker-ongoing {
-  color: rgb(208, 255, 0);
-}
-.ongoing-task {
-  width: 250px;
-  /* height: 100px; */
-  border: rgb(208, 255, 0) solid 3px;
-  border-radius: 8px;
-}
-.ongoing-task h4 {
-  border-bottom: rgb(208, 255, 0) solid 3px;
-}
-
-.task-header {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: azure;
-  font-weight: bold;
-  font-size: 1.5em;
-  margin: 10px;
-  text-align: center;
-}
-.task-name {
-  margin: 10px auto;
-  padding-bottom: 10px;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 1.2rem;
-  color: aliceblue;
-  text-align: center;
-  border-bottom: rgb(255, 255, 0) solid 3px;
-}
-.task-description {
-  overflow: hidden;
-  margin: 15px auto;
-  text-align: center;
-  height: 75px;
-}
-.finished-task {
-  width: 250px;
-  /* height: 100px; */
-  border: rgb(0, 255, 0) solid 3px;
-  border-radius: 8px;
-}
-
-.ongoing-tasks-containter p {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  color: aliceblue;
-}
-.finished-task > h4 {
-  border-bottom: rgb(0, 255, 0) solid 3px;
-}
-.unfinished-task {
-  width: 250px;
-  /* height: 100px; */
-  border: rgb(255, 0, 0) solid 3px;
-  border-radius: 8px;
-}
-
-.unfinished-task > h4 {
-  border-bottom: rgb(255, 0, 0) solid 3px;
 }
 
 .calendar {
@@ -169,22 +108,90 @@ button {
   margin-top: 20px;
   width: fit-content;
 }
-.event,
-.default,
-.ongoing-task,
-.finished-task,
-.unfinished-task:hover {
-  cursor: pointer;
+
+/*_____________ Mainbar styling____________ */
+
+.main-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 75%;
+  /* flex-grow: 3; */
+  background-color: #666666;
 }
+
+.ongoing-tasks-containter,
+.finished-tasks-containter,
+.unfinished-tasks-containter {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-bottom: 15px;
+  border-bottom: rgb(53, 60, 61) solid 3px;
+  margin: 35px;
+  gap: 10px;
+}
+.task-header {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: azure;
+  font-weight: bold;
+  font-size: 1.5em;
+  margin: 10px;
+  text-align: center;
+}
+.task-name {
+  margin: 10px auto;
+  padding-bottom: 10px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 1.2rem;
+  color: aliceblue;
+  text-align: center;
+}
+.task-description {
+  overflow: hidden;
+  margin: 15px auto;
+  text-align: center;
+  height: 75px;
+}
+.ongoing-task {
+  width: 250px;
+  /* height: 100px; */
+  border: rgb(208, 255, 0) solid 3px;
+  border-radius: 8px;
+}
+.ongoing-task h4 {
+  border-bottom: rgb(208, 255, 0) solid 3px;
+}
+
+.finished-task {
+  width: 250px;
+  /* height: 100px; */
+  border: rgb(0, 255, 0) solid 3px;
+  border-radius: 8px;
+}
+.finished-task > h4 {
+  border-bottom: rgb(0, 255, 0) solid 3px;
+}
+
+.unfinished-task {
+  width: 250px;
+  /* height: 100px; */
+  border: rgb(255, 0, 0) solid 3px;
+  border-radius: 8px;
+}
+
+.unfinished-task > h4 {
+  border-bottom: rgb(255, 0, 0) solid 3px;
+}
+
+/* __________Modal_____________ */
 
 .modal {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: absolute;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: space-evenly; */
+
   margin: auto;
   top: 50%;
   left: 50%;
@@ -197,29 +204,63 @@ button {
   border-radius: 5px;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
 }
+
+/* ___________Modal task description_____________ */
+
 .modal-taskname {
   justify-content: center;
 }
+
 .modal-task-descripton-container {
   display: flex;
   justify-content: center;
   margin: 20px;
   gap: 30px;
 }
+.modal-task-descripton-container > div {
+  margin: 0 auto;
+  flex: 1;
+  width: 200px;
+}
+
+.modal-other-info > div {
+  margin-bottom: 10px;
+}
+
+.status-marker-unfinished {
+  color: red;
+}
+
+.status-marker-finished {
+  color: #00ea00;
+}
+.status-marker-ongoing {
+  color: rgb(208, 255, 0);
+}
+
 .modal-buttons {
   display: flex;
   gap: 30%;
   justify-content: center;
 }
-.modal-task-descripton {
-  flex-grow: 1;
+
+/* ___________Modal form task _____________ */
+
+.new-task-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
-.modal-other-info {
-  flex-grow: 1;
+
+.input-container {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  align-items: center;
+  gap: 40px;
 }
-.modal-other-info > div {
-  margin-bottom: 10px;
-}
+
 .reqierd-fields > * {
   margin: 5px;
 }
@@ -229,6 +270,11 @@ button {
   text-align: center;
   align-items: center;
 }
+
+#warning {
+  color: red;
+}
+
 .optonal-fields {
   display: flex;
   flex-direction: column;
@@ -239,13 +285,7 @@ button {
 .optonal-fields > * {
   margin: 5px;
 }
-.input-container {
-  display: flex;
-  justify-content: space-evenly;
-  text-align: center;
-  align-items: center;
-  gap: 40px;
-}
+
 .subb-button,
 .confirm-button,
 .close-button {
@@ -255,31 +295,7 @@ button {
   border: none;
   border-radius: 5px;
 }
-.new-task-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
+
 .hidden {
   display: none;
-}
-.add-new-task {
-  background-color: aqua;
-  border-color: aqua;
-  position: absolute;
-  font-size: 2rem;
-  right: 0px;
-  top: 50%;
-  padding: 0.5rem;
-}
-#warning {
-  color: red;
-}
-input,
-textarea,
-option,
-select {
-  color: black;
-  font-size: 16px;
 }
