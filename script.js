@@ -138,7 +138,7 @@ const renderingEvents = function () {
       delitingEmptyContainers();
     });
   }
-  // console.log(x);
+  
 };
 const sendingParToRenderingTask = function (
   eventName,
@@ -154,7 +154,7 @@ const sendingParToRenderingTask = function (
       // task.status === "ongoing"
     ) {
       // openingTaskDetail(index);
-      console.log(task.taskName);
+     
       renderingTasks(
         document.querySelector(`.${task.status}-tasks-containter`),
         task.status,
@@ -210,10 +210,8 @@ const openingTaskDetail = function () {
       );
     });
   }
-  //  addEventListener("click", () => console.log(element));
+  
 };
-
-defaultevents.addEventListener("click", () => console.log("hello"));
 
 addingTask();
 

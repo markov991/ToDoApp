@@ -127,8 +127,6 @@ const renderingTaskInfo = function (
 
     openingTaskDetail();
     setLocalStorage();
-
-    console.log(taskId);
   });
   document.querySelector(".close-button").addEventListener("click", () => {
     modal.classList.toggle("hidden");
