@@ -1,1 +1,0 @@
-1. Glavni kontejner ima definisanu duzinu u % pa kad dodje do veceg sadrzaja taj sadrzaj ide preko footera. //fixed

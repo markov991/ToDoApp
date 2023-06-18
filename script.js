@@ -19,6 +19,7 @@ const eventsContainer = document.querySelector(".events");
 const events = ["Frontend"];
 const tasks = [
   {
+    taskId: 101,
     taskName: "Learn React",
     description:
       "Lorem ipsum dolor sit amet consectetur,adipisicing elit. Necessitatibus odit quos in reprehenderit ipsum maiores",
@@ -28,6 +29,7 @@ const tasks = [
     dateCreated: "2022-01-01",
   },
   {
+    taskId: 102,
     taskName: "Learn HTML",
     description:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus odit quos in reprehenderit ipsum maiores",
@@ -37,6 +39,7 @@ const tasks = [
     dateCreated: "2022-01-01",
   },
   {
+    taskId: 103,
     taskName: "Learn CSS",
     description:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus odit quos in reprehenderit ipsum maiores",
@@ -46,6 +49,7 @@ const tasks = [
     dateCreated: "2022-01-01",
   },
   {
+    taskId: 104,
     taskName: "Learn JS",
     description:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus odit quos in reprehenderit ipsum maiores",
@@ -55,6 +59,7 @@ const tasks = [
     dateCreated: "2022-01-01",
   },
   {
+    taskId: 105,
     taskName: "Learn Python",
     description:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus odit quos in reprehenderit ipsum maiores",
@@ -64,6 +69,19 @@ const tasks = [
     dateCreated: "2022-01-01",
   },
 ];
+
+const taskIdGenarator = function () {
+  let result = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const charactersLength = characters.length;
+  let counter = 0;
+  while (counter < 6) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    counter += 1;
+  }
+  return result;
+};
 
 const addingTask = function () {
   addbutton.addEventListener("click", function () {
@@ -77,7 +95,7 @@ const addingTask = function () {
     );
   });
 };
-// addEventListener("load", () => renderingEvents());
+
 const collectingDataForTasks = function () {
   const subbTask = document.querySelector(".subb-button");
   if (!modal.classList.contains("hidden")) {
@@ -91,6 +109,7 @@ const collectingDataForTasks = function () {
       ) {
         modal.classList.toggle("hidden");
         tasks.push({
+          taskId: taskIdGenarator(),
           taskName: taskName.value,
           description: taskDescription.value,
           date: dateInput.value,
@@ -138,7 +157,6 @@ const renderingEvents = function () {
       delitingEmptyContainers();
     });
   }
-  
 };
 const sendingParToRenderingTask = function (
   eventName,
@@ -147,14 +165,7 @@ const sendingParToRenderingTask = function (
   deadline
 ) {
   tasks.forEach((task, index) => {
-    if (
-      eventName === task.eventName
-
-      // &&
-      // task.status === "ongoing"
-    ) {
-      // openingTaskDetail(index);
-     
+    if (eventName === task.eventName) {
       renderingTasks(
         document.querySelector(`.${task.status}-tasks-containter`),
         task.status,
@@ -193,7 +204,6 @@ const sendingParToRenderingTask = function (
   });
 };
 
-//Problem when need to render tasks that are not in original task array
 const openingTaskDetail = function () {
   const eventTasks = document.querySelectorAll(`.task`);
   for (let i = 0; i < eventTasks.length; i++) {
@@ -210,7 +220,6 @@ const openingTaskDetail = function () {
       );
     });
   }
-  
 };
 
 addingTask();
@@ -279,7 +288,7 @@ const checkingStatus = function () {
   tasks.forEach((task) => {
     let date = task.date;
     for (let i = 0; i < date.length; i++) {
-      if (date[i] === getCurentDate()[i]) {
+      if (date[i] === getCurentDate()[i] || task.status === "finished") {
         continue;
       }
       if (date[i] < getCurentDate()[i]) {
@@ -299,7 +308,12 @@ const getLocalStorage = function () {
 
   if (!data) return;
   data.forEach((task, index) => {
-    if (!(JSON.stringify(task) === JSON.stringify(tasks[index]))) {
+    tasks.forEach((originalTask) => {
+      if (task.taskId === originalTask.taskId) {
+        originalTask.status = task.status;
+      }
+    });
+    if (!tasks[index]) {
       tasks.push(task);
     }
   });
